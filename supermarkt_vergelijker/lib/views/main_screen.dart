@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:supermarkt_vergelijker/models/product_suggestion.dart';
+import 'package:supermarkt_vergelijker/views/product_cell.dart';
 
 import '../models/product.dart';
 import '../models/store.dart';
@@ -173,11 +174,7 @@ class _MainScreenState extends State<MainScreen> {
                 itemCount: _products.length,
                 itemBuilder: (context, index) {
                   final product = _products[index];
-                  return ListTile(
-                    title: Text(product.name),
-                    subtitle: Text(
-                        'Package: ${product.fullPrice} - Unit: ${product.pricePerUnit}'),
-                  );
+                  return ProductCell(product: product);
                 },
               ),
             ),
