@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:supermarkt_vergelijker/models/product_suggestion.dart';
-import 'package:supermarkt_vergelijker/views/product_cell.dart';
 
+import '../models/product_suggestion.dart';
+import './product_cell.dart';
 import '../models/product.dart';
 import '../models/store.dart';
 import '../utils/api_helper.dart';
@@ -46,6 +46,8 @@ class _MainScreenState extends State<MainScreen> {
                     return const Iterable<String>.empty();
                   }
 
+                  print("fetching suggestions for $query");
+
                   // Fetching suggestions from your APIHelper class
                   _productSuggestions =
                       await APIHelper.getProductSuggestions(query);
@@ -58,6 +60,7 @@ class _MainScreenState extends State<MainScreen> {
                   setState(() {
                     _selectedProductSuggestion = _productSuggestions
                         .firstWhere((element) => element.name == selection);
+                    applyFilters();
                   });
                 },
               ),
@@ -166,6 +169,19 @@ class _MainScreenState extends State<MainScreen> {
                         });
                       },
                     ),
+                    PlatformElevatedButton(
+                      child: const Text('Reset Filters'),
+                      onPressed: () {
+                        setState(() {
+                          _selectedStore = null;
+                          _selectedLocation = null;
+                          _selectedBrand = null;
+                          _selectedType = null;
+                          _selectedSize = null;
+                          applyFilters();
+                        });
+                      },
+                    ),
                   ])
             ],
             const Divider(),
@@ -174,7 +190,8 @@ class _MainScreenState extends State<MainScreen> {
                 itemCount: _products.length,
                 itemBuilder: (context, index) {
                   final product = _products[index];
-                  return ProductCell(product: product);
+                  return ProductCell(
+                      product: product, leastExpensive: _products.first);
                 },
               ),
             ),
@@ -186,15 +203,15 @@ class _MainScreenState extends State<MainScreen> {
 
   void applyFilters() async {
     var products = await APIHelper.getProducts(
-      _selectedProductSuggestion!.name,
-      _selectedStore?.name,
-      _selectedLocation,
-      _selectedBrand,
-      _selectedType,
-      _selectedSize,
+      productName: _selectedProductSuggestion?.name,
+      store: _selectedStore?.name,
+      brand: _selectedBrand,
+      location: _selectedLocation,
+      type: _selectedType,
+      size: _selectedSize,
     );
 
-    setState(() async {
+    setState(() {
       _products = products;
     });
   }

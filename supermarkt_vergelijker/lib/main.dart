@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:supermarkt_vergelijker/views/main_screen.dart';
+
+import './views/main_screen.dart';
 
 void main() {
   runApp(const MyApp());

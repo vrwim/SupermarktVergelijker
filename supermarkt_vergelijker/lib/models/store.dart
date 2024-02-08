@@ -12,8 +12,8 @@ class Store {
   factory Store.fromJson(Map<String, dynamic> json) {
     return Store(
       name: json['name'],
-      locations: json['locations'],
-      brands: json['brands'],
+      locations: json['locations'].map<String>((location) => location.toString()).toList(),
+      brands: json['brands'].map<String>((location) => location.toString()).toList(),
     );
   }
 

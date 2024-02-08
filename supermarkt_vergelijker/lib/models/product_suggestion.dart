@@ -16,11 +16,12 @@ class ProductSuggestion {
   });
 
   factory ProductSuggestion.fromJson(Map<String, dynamic> json) {
+    print(json['stores'].runtimeType);
     return ProductSuggestion(
       name: json['name'],
-      stores: json['stores'],
-      types: json['types'],
-      sizes: json['sizes'],
+      stores: (json['stores'] as List<dynamic>).map((store) => Store.fromJson(store)).toList(),
+      types: (json['types'] as List<dynamic>).map((type) => type.toString()).toList(),
+      sizes: (json['sizes'] as List<dynamic>).map((size) => size.toString()).toList(),
     );
   }
 

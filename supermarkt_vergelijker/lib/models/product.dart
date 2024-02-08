@@ -1,8 +1,7 @@
-import 'dart:ffi';
-
 class Product {
   final String name;
   final String store;
+  final String location;
   final String brand;
   final String type;
   final String size;
@@ -12,6 +11,7 @@ class Product {
   Product({
     required this.name,
     required this.store,
+    required this.location,
     required this.brand,
     required this.type,
     required this.size,
@@ -23,46 +23,12 @@ class Product {
     return Product(
       name: json['name'],
       store: json['store'],
+      location: json['location'],
       brand: json['brand'],
       type: json['type'],
       size: json['size'],
-      fullPrice: json['fullPrice'],
-      pricePerUnit: json['pricePerUnit'],
+      fullPrice: json['fullPrice'].toDouble(),
+      pricePerUnit: json['pricePerUnit'].toDouble(),
     );
-  }
-
-  static Product example() {
-    return Product(
-      name: 'Ei',
-      store: 'Colruyt',
-      brand: 'Boni',
-      type: 'Vrije uitloop',
-      size: 'Per 6',
-      fullPrice: 1.5,
-      pricePerUnit: 0.25,
-    );
-  }
-
-  static List<Product> exampleList() {
-    return [
-      Product(
-        name: 'Ei',
-        store: 'Colruyt',
-        brand: 'Boni',
-        type: 'Vrije uitloop',
-        size: 'Per 6',
-        fullPrice: 1.5,
-        pricePerUnit: 0.25,
-      ),
-      Product(
-        name: 'Melk',
-        store: 'Colruyt',
-        brand: 'Boni',
-        type: 'Mager',
-        size: '1L',
-        fullPrice: 1.5,
-        pricePerUnit: 0.25,
-      ),
-    ];
   }
 }
