@@ -5,7 +5,7 @@ import '../models/product_suggestion.dart';
 import '../models/product.dart';
 
 class APIHelper {
-  static const String baseUrl = 'http://127.0.0.1:8080';
+  static const String baseUrl = 'http://146.190.25.236:8080';
 
   static Future<List<ProductSuggestion>> getProductSuggestions(String query) async {
     final response = await http.get(Uri.parse('$baseUrl/productSuggestions?query=$query'));
